@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Emergency Alert System</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Ultra-Modern Registration Page 2025 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 50%, #43e97b 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 20px 0;
+        }
+
+        /* Dynamic Background */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 30% 70%, rgba(67, 233, 123, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 70% 30%, rgba(79, 172, 254, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(0, 242, 254, 0.3) 0%, transparent 50%);
+            animation: backgroundShift 12s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes backgroundShift {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(2deg); }
+        }
+
+        /* Main Registration Container */
+        .register-container {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 40px 35px;
+            width: 100%;
+            max-width: 480px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.1);
+            position: relative;
+            animation: slideUp 0.8s cubic-bezier(0.23, 1, 0.320, 1);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Rainbow Top Border */
+        .register-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #fcea2b, #ff9ff3);
+            border-radius: 24px 24px 0 0;
+            background-size: 400% 400%;
+            animation: rainbowShift 3s ease infinite;
+        }
+
+        @keyframes rainbowShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Header Section */
+        .register-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .brand-icon {
+            width: 65px;
+            height: 65px;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 18px;
+            font-size: 28px;
+            color: white;
+            box-shadow: 0 15px 35px rgba(79, 172, 254, 0.4);
+            animation: iconBounce 2s ease-in-out infinite;
+        }
+
+        @keyframes iconBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .register-title {
+            font-size: 26px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.9) 100%);
+            -webkit-background-clip: text;
+background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 6px;
+        }
+
+        .register-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Form Styles */
+        .register-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .form-row .input-group {
+            flex: 1;
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 14px 18px 14px 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 14px;
+            color: white;
+            font-size: 14px;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .input-group select {
+            cursor: pointer;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1);
+        }
+
+        .input-group input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+        }
+
+        /* Password Strength Indicator */
+        .password-strength {
+            margin-top: 5px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .strength-bar {
+            height: 100%;
+            width: 0%;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .strength-weak { background: #ff4757; width: 25%; }
+        .strength-fair { background: #ffa502; width: 50%; }
+        .strength-good { background: #2ed573; width: 75%; }
+        .strength-strong { background: #1e90ff; width: 100%; }
+
+        /* Terms & Conditions */
+        .terms-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: 5px 0;
+        }
+
+        .terms-group input[type="checkbox"] {
+            margin-top: 3px;
+            width: 16px;
+            height: 16px;
+            accent-color: #4facfe;
+        }
+
+        .terms-text {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .terms-text a {
+            color: rgba(255, 255, 255, 1);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .terms-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* Register Button */
+        .register-btn {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            color: white;
+            border: none;
+            padding: 16px 20px;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(79, 172, 254, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .register-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(79, 172, 254, 0.6);
+        }
+
+        .register-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Social Registration */
+        .social-register {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .divider {
+            position: relative;
+            margin: 18px 0;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 13px;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .divider span {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 50%, #43e97b 100%);
+            padding: 0 14px;
+        }
+
+        .social-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .social-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: white;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Footer Links */
+        .register-footer {
+            text-align: center;
+            margin-top: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 13px;
+        }
+
+        .register-footer a {
+            color: rgba(255, 255, 255, 1);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .register-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            width: 42px;
+            height: 42px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Loading State */
+        .loading {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .loading .register-btn::after {
+            content: '';
+            width: 18px;
+            height: 18px;
+            border: 2px solid transparent;
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 8px;
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .register-container {
+                margin: 10px;
+                padding: 35px 25px;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .register-title {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Back Button -->
+    <a href="index.html" class="back-btn">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+
+    <div class="register-container">
+        <div class="register-header">
+            <div class="brand-icon">
+                <i class="fas fa-user-plus"></i>
+            </div>
+            <h1 class="register-title">Create Account</h1>
+            <p class="register-subtitle">Join our emergency alert community today</p>
+        </div>
+
+        <form class="register-form" id="registerForm">
+            <div class="form-row">
+                <div class="input-group">
+                    <i class="fas fa-user input-icon"></i>
+                    <input type="text" id="firstName" placeholder="First Name" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-user input-icon"></i>
+                    <input type="text" id="lastName" placeholder="Last Name" required>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <i class="fas fa-envelope input-icon"></i>
+                <input type="email" id="email" placeholder="Enter your email address" required>
+            </div>
+
+            <div class="input-group">
+                <i class="fas fa-phone input-icon"></i>
+                <input type="tel" id="phone" placeholder="Phone number (+1234567890)" required>
+            </div>
+
+            <div class="form-row">
+                <div class="input-group">
+                    <i class="fas fa-calendar input-icon"></i>
+                    <input type="date" id="birthdate" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-venus-mars input-icon"></i>
+                    <select id="gender" required>
+                        <option value="">Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <i class="fas fa-lock input-icon"></i>
+                <input type="password" id="password" placeholder="Create a strong password" required>
+                <div class="password-strength">
+                    <div class="strength-bar" id="strengthBar"></div>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <i class="fas fa-lock input-icon"></i>
+                <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+            </div>
+
+            <div class="terms-group">
+                <input type="checkbox" id="agreeTerms" required>
+                <label for="agreeTerms" class="terms-text">
+                    I agree to the <a href="#" target="_blank">Terms of Service</a> 
+                    and <a href="#" target="_blank">Privacy Policy</a>
+                </label>
+            </div>
+
+            <div class="terms-group">
+                <input type="checkbox" id="receiveUpdates">
+                <label for="receiveUpdates" class="terms-text">
+                    I want to receive updates about emergency safety tips and system improvements
+                </label>
+            </div>
+
+            <button type="submit" class="register-btn">
+                <span>Create My Account</span>
+            </button>
+        </form>
+
+        <div class="social-register">
+            <div class="divider">
+                <span>Or register with</span>
+            </div>
+            
+            <div class="social-buttons">
+                <a href="#" class="social-btn google">
+                    <i class="fab fa-google"></i>
+                </a>
+                <a href="#" class="social-btn facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="social-btn twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="register-footer">
+            Already have an account? <a href="login.html">Sign in here</a>
+        </div>
+    </div>
+
+    <script>
+        // Password Strength Checker
+        document.getElementById('password').addEventListener('input', function() {
+            const password = this.value;
+            const strengthBar = document.getElementById('strengthBar');
+            const strength = calculatePasswordStrength(password);
+            
+            strengthBar.className = 'strength-bar';
+            if (strength === 1) strengthBar.classList.add('strength-weak');
+            else if (strength === 2) strengthBar.classList.add('strength-fair');
+            else if (strength === 3) strengthBar.classList.add('strength-good');
+            else if (strength === 4) strengthBar.classList.add('strength-strong');
+        });
+
+        function calculatePasswordStrength(password) {
+            let strength = 0;
+            
+            if (password.length >= 8) strength++;
+            if (password.match(/[a-z]/) && password.match(/[A-Z]/)) strength++;
+            if (password.match(/[0-9]/)) strength++;
+            if (password.match(/[^a-zA-Z0-9]/)) strength++;
+            
+            return strength;
+        }
+
+        // Form Validation
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const birthdate = document.getElementById('birthdate').value;
+            const gender = document.getElementById('gender').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const agreeTerms = document.getElementById('agreeTerms').checked;
+            const receiveUpdates = document.getElementById('receiveUpdates').checked;
+            
+            // Validation checks
+            if (password !== confirmPassword) {
+                alert('❌ Passwords do not match!');
+                return;
+            }
+            
+            if (calculatePasswordStrength(password) < 2) {
+                alert('❌ Please create a stronger password!');
+                return;
+            }
+            
+            if (!agreeTerms) {
+                alert('❌ Please agree to the Terms of Service and Privacy Policy!');
+                return;
+            }
+            
+            // Add loading state
+            const container = document.querySelector('.register-container');
+            container.classList.add('loading');
+            
+            // Simulate registration process
+            setTimeout(() => {
+                // Store user data
+                const userData = {
+                    firstName: firstName,
+                    lastName: lastName,
+                    name: firstName + ' ' + lastName,
+                    email: email,
+                    phone: phone,
+                    birthdate: birthdate,
+                    gender: gender,
+                    receiveUpdates: receiveUpdates,
+                    registrationDate: new Date().toISOString()
+                };
+                
+                localStorage.setItem('jr_user', JSON.stringify(userData));
+                
+                // Success animation
+                container.classList.remove('loading');
+                container.style.transform = 'scale(1.05)';
+                container.style.opacity = '0.9';
+                
+                setTimeout(() => {
+                    alert('🎉 Registration successful! Welcome to Emergency Alert System!');
+                    window.location.href = 'login.html';
+                }, 500);
+                
+            }, 2000);
+        });
+
+        // Phone number formatting
+        document.getElementById('phone').addEventListener('input', function() {
+            let value = this.value.replace(/\D/g, '');
+            if (value.length > 0) {
+                if (value.length <= 3) {
+                    this.value = '+' + value;
+                } else if (value.length <= 6) {
+                    this.value = '+' + value.slice(0, 3) + ' ' + value.slice(3);
+                } else if (value.length <= 10) {
+                    this.value = '+' + value.slice(0, 3) + ' ' + value.slice(3, 6) + ' ' + value.slice(6);
+                } else {
+                    this.value = '+' + value.slice(0, 3) + ' ' + value.slice(3, 6) + ' ' + value.slice(6, 10);
+                }
+            }
+        });
+
+        // Enhanced animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Stagger form field animations
+            const inputs = document.querySelectorAll('.input-group, .terms-group');
+            inputs.forEach((input, index) => {
+                input.style.animationDelay = (index * 0.1) + 's';
+                input.style.animation = 'slideUp 0.6s ease-out both';
+            });
+        });
+
+        // Social registration handlers
+        document.querySelector('.social-btn.google').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('🔗 Google registration coming soon!');
+        });
+
+        document.querySelector('.social-btn.facebook').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('🔗 Facebook registration coming soon!');
+        });
+
+        document.querySelector('.social-btn.twitter').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('🔗 Twitter registration coming soon!');
+        });
+    </script>
+</body>
+</html>
