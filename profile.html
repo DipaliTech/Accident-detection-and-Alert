@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile • Accident App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="navbar">
+    <div class="burger" onclick="toggleDrawer()">☰</div>
+    <div class="brand-mini">Profile</div>
+  </div>
+
+  <div class="drawer" id="drawer">
+    <div class="panel">
+      <div class="menu">
+        <h3>MENU</h3>
+        <a href="home.html">Home</a>
+        <a href="profile.html">Profile</a>
+        <a href="reset.html">Reset Password</a>
+        <a href="login.html" onclick="logout()">Logout</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top:70px">
+    <div class="header center">
+      <h2>Account</h2>
+      <p class="sub">Your saved details</p>
+    </div>
+    <div id="profileBox" class="small"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emergency Contacts • Accident Alert System</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .contacts-page {
+      margin-top: 100px;
+      padding: 20px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .contact-form {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+    }
+    
+    .form-input {
+      width: 100%;
+      padding: 12px 15px;
+      margin: 10px 0;
+      border: 2px solid #e1e5e9;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    
+    .form-input:focus {
+      outline: none;
+      border-color: #5352ed;
+    }
+    
+    .contact-btn {
+      background: linear-gradient(135deg, #5352ed, #3742fa);
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 25px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 15px;
+    }
+    
+    .contact-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(83, 82, 237, 0.4);
+    }
+    
+    .contacts-list {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    }
+    
+    .contact-item {
+      padding: 15px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .contact-item:last-child {
+      border-bottom: none;
+    }
+    
+    .delete-btn {
+      background: #ff4757;
+      color: white;
+      border: none;
+      padding: 5px 15px;
+      border-radius: 15px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="burger" onclick="toggleDrawer()">☰</div>
+    <div class="brand-mini">📞 Emergency Contacts</div>
+  </div>
+
+  <div class="drawer" id="drawer">
+    <div class="panel">
+      <div class="menu">
+        <h3>🔗 MENU</h3>
+        <a href="home.html">🏠 Home</a>
+        <a href="contacts.html">📞 Emergency Contacts</a>
+        <a href="profile.html">👤 Profile</a>
+        <a href="reset.html">🔐 Reset Password</a>
+        <a href="login.html" onclick="logout()">🚪 Logout</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="contacts-page">
+    <div class="contact-form">
+      <h2 style="text-align: center; color: #2f3640; margin-bottom: 25px;">
+        🚨 Emergency Contacts Manager
+      </h2>
+      
+      <h3 style="color: #5352ed;">➕ Add New Contact</h3>
+      
+      <input type="text" id="contactName" class="form-input" placeholder="👤 Full Name (e.g., John Doe)">
+      <input type="tel" id="contactPhone" class="form-input" placeholder="📞 Phone Number (e.g., +1 234 567 8900)">
+      
+      <select id="contactType" class="form-input">
+        <option value="">🏷️ Select Contact Type</option>
+        <option value="family">👨‍👩‍👧‍👦 Family Member</option>
+        <option value="friend">👥 Friend</option>
+        <option value="doctor">👨‍⚕️ Doctor</option>
+        <option value="emergency">🚨 Emergency Service</option>
+        <option value="other">🤝 Other</option>
+      </select>
+      
+      <button class="contact-btn" onclick="addEmergencyContact()">
+        ➕ Add Emergency Contact
+      </button>
+    </div>
+
+    <div class="contacts-list">
+      <h3 style="color: #2f3640; margin-bottom: 20px;">📋 Saved Emergency Contacts</h3>
+      <div id="emergencyContactsList">
+        <p style="text-align: center; color: #57606f; font-style: italic;">
+          No emergency contacts added yet. Add your first contact above! 👆
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    // Emergency Contacts Management
+    let emergencyContacts = JSON.parse(localStorage.getItem('emergencyContacts')) || [];
+
+    function addEmergencyContact() {
+      const name = document.getElementById('contactName').value.trim();
+      const phone = document.getElementById('contactPhone').value.trim();
+      const type = document.getElementById('contactType').value;
+
+      if (!name || !phone || !type) {
+        alert('❌ Please fill all fields!');
+        return;
+      }
+
+      // Simple phone validation
+      const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+      if (!phoneRegex.test(phone.replace(/\s/g, ''))) {
+        alert('❌ Please enter a valid phone number!');
+        return;
+      }
+
+      const newContact = {
+        id: Date.now(),
+        name: name,
+        phone: phone,
+        type: type,
+        dateAdded: new Date().toLocaleDateString()
+      };
+
+      emergencyContacts.push(newContact);
+      localStorage.setItem('emergencyContacts', JSON.stringify(emergencyContacts));
+
+      // Clear form
+      document.getElementById('contactName').value = '';
+      document.getElementById('contactPhone').value = '';
+      document.getElementById('contactType').value = '';
+
+      loadEmergencyContacts();
+      alert(`✅ Emergency contact added successfully!\n\n👤 ${name}\n📞 ${phone}\n🏷️ ${type}`);
+    }
+
+    function loadEmergencyContacts() {
+      const listContainer = document.getElementById('emergencyContactsList');
+      
+      if (emergencyContacts.length === 0) {
+        listContainer.innerHTML = `
+          <p style="text-align: center; color: #57606f; font-style: italic;">
+            No emergency contacts added yet. Add your first contact above! 👆
+          </p>
+        `;
+        return;
+      }
+
+      listContainer.innerHTML = emergencyContacts.map(contact => `
+        <div class="contact-item">
+          <div>
+            <h4 style="margin: 0 0 5px 0; color: #2f3640;">
+              ${getTypeIcon(contact.type)} ${contact.name}
+            </h4>
+            <p style="margin: 0; color: #57606f; font-size: 14px;">
+              📞 ${contact.phone} • Added: ${contact.dateAdded}
+            </p>
+          </div>
+          <button class="delete-btn" onclick="deleteEmergencyContact(${contact.id})" title="Delete Contact">
+            🗑️ Delete
+          </button>
+        </div>
+      `).join('');
+    }
+
+    function getTypeIcon(type) {
+      const icons = {
+        'family': '👨‍👩‍👧‍👦',
+        'friend': '👥',
+        'doctor': '👨‍⚕️',
+        'emergency': '🚨',
+        'other': '🤝'
+      };
+      return icons[type] || '👤';
+    }
+
+    function deleteEmergencyContact(id) {
+      if (confirm('🗑️ Are you sure you want to delete this emergency contact?')) {
+        emergencyContacts = emergencyContacts.filter(contact => contact.id !== id);
+        localStorage.setItem('emergencyContacts', JSON.stringify(emergencyContacts));
+        loadEmergencyContacts();
+        alert('✅ Emergency contact deleted successfully!');
+      }
+    }
+
+    // Load contacts on page load
+    loadEmergencyContacts();
+    
+    // Test Emergency Alert Function
+    function testEmergencyAlert() {
+      if (emergencyContacts.length === 0) {
+        alert('⚠️ No emergency contacts found!\n\nPlease add at least one emergency contact first.');
+        return;
+      }
+      
+      const message = `🚨 TEST EMERGENCY ALERT 🚨\n\nThis is a test message from your Accident Alert System.\n\nTime: ${new Date().toLocaleString()}\n\nIf this was a real emergency, you would receive location details and instructions.`;
+      
+      emergencyContacts.forEach(contact => {
+        const cleanPhone = contact.phone.replace(/\D/g, '');
+        const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
+        window.open(whatsappUrl, '_blank');
+      });
+      
+      alert(`✅ Test alert sent to ${emergencyContacts.length} emergency contacts!`);
+    }
+  </script>
+</body>
+</html>
